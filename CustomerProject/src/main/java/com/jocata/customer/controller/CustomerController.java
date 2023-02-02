@@ -1,0 +1,107 @@
+package com.jocata.customer.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.jocata.customer.model.CustomerDetails;
+import com.jocata.customer.request.CustomerRequest;
+import com.jocata.customer.response.CustomerResponse;
+import com.jocata.customer.service.CustomerService;
+
+@RestController
+public class CustomerController {
+
+	@Autowired
+	private CustomerService customerService;
+
+	@PostMapping("/saveCustomer")
+	public ResponseEntity<?> saveCustomer(@RequestBody CustomerRequest request) {
+		CustomerDetails customerDetails = new CustomerDetails();
+		
+		customerDetails.setFirstname(request.getFirstname());
+		customerDetails.setMiddlename(request.getMiddlename());
+		customerDetails.setLastname(request.getLastname());
+		customerDetails.setMobileno(request.getMobileno());
+		customerDetails.setEmailid(request.getEmailid());
+		customerDetails.setDob(request.getDob());
+		
+		 customerDetails=  (CustomerDetails) customerService.save(customerDetails);
+
+		CustomerResponse response = new CustomerResponse();
+		response.setId(customerDetails.getId());
+		response.setFirstname(customerDetails.getFirstname());
+		response.setMiddlename(customerDetails.getMiddlename());
+		response.setLastname(customerDetails.getLastname());
+		response.setMobileno(customerDetails.getMobileno());
+		response.setEmailid(customerDetails.getEmailid());
+		response.setDob(customerDetails.getDob());
+		response.setMessage("Customer Saved Successfully !!" + customerDetails.getId());
+		return new ResponseEntity<CustomerResponse>(response, HttpStatus.OK);
+
+	}
+	@PutMapping("/updateCustomer")
+	public ResponseEntity<?> updateCustomer(@RequestBody CustomerRequest request){
+        CustomerDetails customerDetails = new CustomerDetails();
+		
+        customerDetails.setId(request.getId());
+		customerDetails.setFirstname(request.getFirstname());
+		customerDetails.setMiddlename(request.getMiddlename());
+		customerDetails.setLastname(request.getLastname());
+		customerDetails.setMobileno(request.getMobileno());
+		customerDetails.setEmailid(request.getEmailid());
+		customerDetails.setDob(request.getDob());
+		
+	    customerDetails= (CustomerDetails) customerService.update(customerDetails);
+	    
+	    CustomerResponse response = new CustomerResponse();
+		response.setId(customerDetails.getId());
+		response.setFirstname(customerDetails.getFirstname());
+		response.setMiddlename(customerDetails.getMiddlename());
+		response.setLastname(customerDetails.getLastname());
+		response.setMobileno(customerDetails.getMobileno());
+		response.setEmailid(customerDetails.getEmailid());
+		response.setDob(customerDetails.getDob());
+		response.setMessage("Customer Update Successfully !!" + customerDetails.getId());
+		return new ResponseEntity<CustomerResponse>(response, HttpStatus.OK);	
+		
+	}
+	@DeleteMapping("/deleteCustomer")
+	public ResponseEntity<?> deleteCustomer(@RequestBody CustomerRequest request){
+		CustomerDetails customerDetails=new CustomerDetails();
+		customerDetails.setId(request.getId());
+		
+		customerService.delete(request.getId());
+		
+		CustomerResponse response=new CustomerResponse();
+		response.setId(customerDetails.getId());
+		response.setMessage("Customer Record  Deletes Successfully!! " +customerDetails.getId());
+		return new ResponseEntity<CustomerResponse>(response,HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllCustomer")
+	public ResponseEntity<?> getAllCustomers()
+	{
+		List<CustomerDetails> list=customerService.loadEntityByHql();
+		return new ResponseEntity<List<CustomerDetails>>(list,HttpStatus.OK);
+	}
+	@GetMapping("/getById/{id}")
+	public CustomerDetails get(@PathVariable int id){
+		 CustomerDetails customerObj = customerService.getById(id);
+		 if(customerObj==null) {
+			 throw new RuntimeException("Employee with id " + id + " is not found");
+		 }
+		return customerObj;
+	}
+	   
+
+}

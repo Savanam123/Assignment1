@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=SpringHibernate/src\/main\/java&lt;com.jocata.dao{EmployeeDao.java[EmployeeDao" modifiers="513" timestamp="1670393881906"/>
+<typeInfo handle="=SpringHibernate/src\/main\/java&lt;com.jocata.service{EmployeeService.java[EmployeeService" modifiers="513" timestamp="1670444801924"/>
+<typeInfo handle="=Customer/src\/main\/java&lt;com.jocata.customer.dao{CustomerDao.java[CustomerDao" modifiers="513" timestamp="1670483036254"/>
+<typeInfo handle="=SpringBootMapping/C:\/Users\/Savanam.Jyoti\/.m2\/repository\/org\/springframework\/data\/spring-data-jpa\/2.7.6\/spring-data-jpa-2.7.6.jar&lt;org.springframework.data.jpa.repository(JpaRepository.class[JpaRepository" modifiers="1537" timestamp="1670317892467"/>
+<typeInfo handle="=StudentProject/src\/main\/java&lt;com.jocata.student.dao{StudentDao.java[StudentDao" modifiers="513" timestamp="1671450229378"/>
+<typeInfo handle="=StudentProject/src\/main\/java&lt;com.jocata.student.service{StudentService.java[StudentService" modifiers="513" timestamp="1671450169540"/>
+</typeInfoHistroy>
